@@ -14,6 +14,22 @@ app.get("/", (req, res) => {
   res.render(file);
 });
 
+app.get("/favorite-universities", async (req, res) => {
+  try {
+    const file = path.join(__dirname, "/favorite");
+    let sql = "select * from fav_universities";
+
+    let [result] = await db.query(sql);
+    if (result.length != 0) {
+      res.render(file, { data: result });
+      console.log(result);
+    }
+  } catch (err) {
+    res.status(500).json({ message: err });
+    console.log(err);
+  }
+});
+
 app.post("/add-fav-university", async (req, res) => {
   const { name, user } = req.body; // Destructure the request body
   console.log(req.body); // For debugging

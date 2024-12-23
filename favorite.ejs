@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Favorite Universities</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <a href="/">
+          <li>Search</li>
+        </a>
+        <a href="/favorite-universities">
+          <li>Favorites</li>
+        </a>
+      </ul>
+    </nav>
+    <table cellspacing="0" class="favUniversityList">
+      <thead>
+        <tr>
+          <th>Sno</th>
+          <th>university Name</th>
+          <th>Visit website</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% data.map((v,i)=>{%>
+        <tr>
+          <td><%= i+1 %></td>
+          <td class="university_name"><%=v.university_name%></td>
+          <td class="university_link"></td>
+        </tr>
+        <%})%>
+      </tbody>
+    </table>
+  </body>
+</html>
+
+<script>
+  let searchUniversity = document.querySelectorAll(".university_name");
+  let UniversityWebLink = document.querySelectorAll(".university_link");
+  console.log(searchUniversity);
+
+  searchUniversity.forEach(async (v, i) => {
+    console.log(v.innerText);
+    const params = v.innerText.trim();
+    await fetch(`http://universities.hipolabs.com/search?name=${params}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        console.log(res[0]);
+        UniversityWebLink[
+          i
+        ].innerHTML = `<a href=${res[0].web_pages} target="_blank">Visit Website</a>`;
+      });
+  });
+</script>

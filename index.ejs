@@ -7,6 +7,16 @@
     <title>Universities</title>
   </head>
   <body>
+    <nav>
+      <ul>
+        <a href="/">
+          <li>Search</li>
+        </a>
+        <a href="/favorite-universities">
+          <li>Favorites</li>
+        </a>
+      </ul>
+    </nav>
     <div class="container">
       <h1>Search for universities</h1>
       <form method="POST">
@@ -49,10 +59,11 @@
           e.preventDefault();
           let country = e.target.country.value;
           let university = e.target.university.value;
-
-          await fetch(
-            `http://universities.hipolabs.com/search?name=${university}&country=${country}`
-          )
+          console.log(country, university);
+          let url = country
+            ? `http://universities.hipolabs.com/search?name=${university}`
+            : `http://universities.hipolabs.com/search?name=${university}&country=${country}`;
+          await fetch(url)
             .then((res) => {
               if (res) {
                 return res.json();
@@ -113,6 +124,7 @@
               if (response.ok) {
                 alert("University added to favorites successfully!");
                 console.log("Response:", result);
+                
               } else {
                 alert("Failed to add university to favorites.");
                 console.error("Error response:", result);
