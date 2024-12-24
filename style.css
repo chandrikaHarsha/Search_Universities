@@ -93,12 +93,18 @@ nav ul a {
   border: none;
 }
 
-.container table,
-.favUniversityList {
+.container table {
   width: 90%;
   margin: 30px auto;
   display: none;
   overflow:scroll;
+}
+
+.favUniversityList{
+  width: 90%;
+  margin: 30px auto;
+  overflow:scroll;
+  text-transform:capitalize;
 }
 .container table thead,
 .favUniversityList thead {
